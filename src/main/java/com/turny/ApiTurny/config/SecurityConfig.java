@@ -38,6 +38,7 @@ public class SecurityConfig {
                         // Rutas públicas
                         .requestMatchers(
                                 "/auth/**",
+                                "/api/business-hours/**",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
                                 "/actuator/health"
