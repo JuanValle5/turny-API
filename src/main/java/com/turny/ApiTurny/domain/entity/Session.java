@@ -1,4 +1,4 @@
-package com.turny.ApiTurny.entity;
+package com.turny.ApiTurny.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

@@ -1,4 +1,4 @@
-package com.turny.ApiTurny.entity;
+package com.turny.ApiTurny.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -36,9 +36,11 @@ public class Client {
     private String notas;
 
     @Column(name = "total_citas", nullable = false)
+    @Builder.Default
     private Integer totalCitas = 0;
 
     @Column(name = "total_gastado", nullable = false, precision = 10, scale = 2)
+    @Builder.Default
     private BigDecimal totalGastado = BigDecimal.ZERO;
 
     @CreationTimestamp

@@ -1,4 +1,4 @@
-package com.turny.ApiTurny.entity;
+package com.turny.ApiTurny.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -68,15 +68,19 @@ public class Business {
     private String logoUrl;
 
     @Column(nullable = false, precision = 2, scale = 1)
+    @Builder.Default
     private BigDecimal rating = BigDecimal.ZERO;
 
     @Column(name = "total_resenas", nullable = false)
+    @Builder.Default
     private Integer totalResenas = 0;
 
     @Column(nullable = false)
+    @Builder.Default
     private Boolean activo = true;
 
     @Column(nullable = false)
+    @Builder.Default
     private Boolean verificado = false;
 
     @CreationTimestamp

@@ -1,4 +1,4 @@
-package com.turny.ApiTurny.entity;
+package com.turny.ApiTurny.domain.entity;
 
 
 import jakarta.persistence.*;
@@ -41,15 +41,18 @@ public class User {
     private String avatarUrl;
 
     @Column(name = "auth_provider", nullable = false, length = 20)
+    @Builder.Default
     private String authProvider = "email";  // "email"|"google"|"facebook"
 
     @Column(name = "auth_provider_id", length = 255)
     private String authProviderId;
 
     @Column(name = "email_verificado", nullable = false)
+    @Builder.Default
     private Boolean emailVerificado = false;
 
     @Column(nullable = false)
+    @Builder.Default
     private Boolean activo = true;
 
     @Column(name = "ultimo_login")

@@ -1,4 +1,4 @@
-package com.turny.ApiTurny.entity;
+package com.turny.ApiTurny.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -45,6 +45,7 @@ public class Appointment {
 
     // "pendiente"|"confirmada"|"completada"|"cancelada"|"no_asistio"
     @Column(nullable = false, length = 15)
+    @Builder.Default
     private String estado = "pendiente";
 
     @Column(name = "notas_cliente", columnDefinition = "TEXT")
@@ -69,6 +70,7 @@ public class Appointment {
     private Instant fechaCancelacion;
 
     @Column(name = "recordatorio_enviado", nullable = false)
+    @Builder.Default
     private Boolean recordatorioEnviado = false;
 
     @CreationTimestamp
