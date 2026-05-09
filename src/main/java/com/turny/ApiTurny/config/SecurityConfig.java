@@ -39,6 +39,7 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/auth/**",
                                 "/api/business-hours/**",
+                                "/api/services/**",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
                                 "/actuator/health"
@@ -58,6 +59,7 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration config
+
     ) throws Exception {
         return config.getAuthenticationManager();
     }
