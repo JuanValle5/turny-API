@@ -31,7 +31,7 @@ public class AuthService {
     @Transactional
     public AuthResponse register(RegisterRequest request) {
         if (userRepository.existsByEmail(request.email())) {
-            throw new IllegalArgumentException("El email ya está registrado");
+            throw new IllegalStateException("El email ya está registrado");
         }
 
         // Validación extra para business

@@ -40,6 +40,7 @@ public class SecurityConfig {
                                 "/auth/**",
                                 "/api/business-hours/**",
                                 "/api/services/**",
+                                "/api/appointments/slots", // ← solo slots es público
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
                                 "/actuator/health"

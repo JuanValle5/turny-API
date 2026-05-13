@@ -37,6 +37,7 @@ public class Notification {
     private Map<String, Object> data;
 
     @Column(nullable = false)
+    @Builder.Default
     private Boolean leida = false;
 
     @Column(name = "fecha_lectura")

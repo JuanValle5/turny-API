@@ -41,6 +41,7 @@ public class Review {
     private Instant fechaRespuesta;
 
     @Column(nullable = false)
+    @Builder.Default
     private Boolean visible = true;
 
     @CreationTimestamp

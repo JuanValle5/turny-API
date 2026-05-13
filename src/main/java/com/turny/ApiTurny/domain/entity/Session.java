@@ -35,6 +35,7 @@ public class Session {
     private Instant expiraEn;
 
     @Column(nullable = false)
+    @Builder.Default
     private Boolean activa = true;
 
     @CreationTimestamp
