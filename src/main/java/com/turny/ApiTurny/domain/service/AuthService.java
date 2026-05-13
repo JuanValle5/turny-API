@@ -10,12 +10,13 @@ import com.turny.ApiTurny.domain.entity.User;
 import com.turny.ApiTurny.domain.repository.UserRepository;
 import com.turny.ApiTurny.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -80,8 +81,12 @@ public class AuthService {
                 user.getEmail(), user.getTipo(), user.getId().toString()
         );
 
+        UUID perfilId = "client".equals(request.tipo())
+                ? user.getClient().getId()
+                : user.getBusiness().getId();
+
         return new AuthResponse(
-                token, user.getId(), user.getTipo(), user.getNombre(), user.getEmail()
+                token, user.getId(),perfilId, user.getTipo(), user.getNombre(), user.getEmail()
         );
     }
 
@@ -94,14 +99,21 @@ public class AuthService {
             throw new BadCredentialsException("Credenciales inválidas");
         }
 
-        User user = userRepository.findByEmail(request.email())
+        // Usa el fetch con join para traer client/business en una sola query
+        User user = userRepository.findByEmailWithPerfil(request.email())
                 .orElseThrow(() -> new BadCredentialsException("Credenciales inválidas"));
 
         String token = jwtUtil.generateToken(
                 user.getEmail(), user.getTipo(), user.getId().toString()
         );
 
-        return new AuthResponse(token, user.getId(), user.getTipo(), user.getNombre(), user.getEmail());
+        UUID perfilId = "client".equals(user.getTipo())
+                ? (user.getClient() != null ? user.getClient().getId() : null)
+                : (user.getBusiness() != null ? user.getBusiness().getId() : null);
+
+        return new AuthResponse(
+                token, user.getId(), perfilId, user.getTipo(), user.getNombre(), user.getEmail()
+        );
     }
 
     // Genera un código único de 8 caracteres para el negocio (ej: TRN-A3F9)
