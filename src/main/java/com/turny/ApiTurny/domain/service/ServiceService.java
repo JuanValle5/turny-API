@@ -43,6 +43,7 @@ public class ServiceService {
                         .categoria(request.categoria())
                         .imagenUrl(request.imagenUrl())
                         .orden(request.orden() != null ? request.orden() : (short) 0)
+                        .activo(true)
                         .build();
 
         return toResponse(serviceRepository.save(servicio));

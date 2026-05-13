@@ -34,6 +34,7 @@ public class Service {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal precio;
 
+    @Builder.Default
     @Column(name = "precio_desde", nullable = false)
     private Boolean precioDesde = false;
 
@@ -43,6 +44,7 @@ public class Service {
     @Column(name = "imagen_url", length = 500)
     private String imagenUrl;
 
+    @Builder.Default
     @Column(nullable = false)
     private Boolean activo = true;
 
