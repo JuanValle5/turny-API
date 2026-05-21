@@ -213,9 +213,11 @@
 				<groupId>org.flywaydb</groupId>
 				<artifactId>flyway-maven-plugin</artifactId>
 				<configuration>
-					<url>jdbc:postgresql://localhost:5432/turny_db</url>
-					<user>postgres</user>
-					<password>tu_password_aqui</password>
+					<url>${DATABASE_URL}</url>
+					<user>${DATABASE_USER}</user>
+					<password>${DATABASE_PASSWORD}</password>
+					<schemas>public</schemas>
+					<baselineOnMigrate>true</baselineOnMigrate>
 				</configuration>
 			</plugin>
 		</plugins>
