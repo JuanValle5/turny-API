@@ -1,0 +1,23 @@
+package com.turny.ApiTurny.controller;
+
+import com.turny.ApiTurny.domain.dto.business.BusinessCardResponse;
+import com.turny.ApiTurny.domain.service.BusinessService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/businesses")
+@RequiredArgsConstructor
+public class BusinessController {
+
+    private final BusinessService businessService;
+
+    // Público — cualquier cliente puede ver los negocios
+    @GetMapping
+    public ResponseEntity<List<BusinessCardResponse>> getCards() {
+        return ResponseEntity.ok(businessService.getCards());
+    }
+}
