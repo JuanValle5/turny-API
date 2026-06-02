@@ -63,6 +63,14 @@ public class AppointmentService {
         LocalTime horaFin = request.hora().plusMinutes(servicio.getDuracion());
         validarDentroDeHorario(request.hora(), horaFin, horario);
 
+        // Valida que si la cita es hoy, la hora no haya pasado
+        if (request.fecha().equals(LocalDate.now()) &&
+                request.hora().isBefore(LocalTime.now())) {
+            throw new IllegalArgumentException(
+                    "No puedes agendar una cita en una hora que ya pasó"
+            );
+        }
+
         // 6. Validar que no hay conflicto con otra cita
         if (appointmentRepository.existeConflicto(
                 negocio.getId(), request.fecha(), request.hora()

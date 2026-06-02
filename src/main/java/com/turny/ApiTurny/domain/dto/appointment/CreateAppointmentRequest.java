@@ -1,6 +1,7 @@
 package com.turny.ApiTurny.domain.dto.appointment;
 
 import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
@@ -14,7 +15,7 @@ public record CreateAppointmentRequest(
         @NotNull
         UUID servicioId,
 
-        @NotNull @Future
+        @NotNull @FutureOrPresent
         LocalDate fecha,
 
         @NotNull
