@@ -3,12 +3,16 @@ package com.turny.ApiTurny.domain.service;
 import com.turny.ApiTurny.domain.dto.business.BusinessCardResponse;
 import com.turny.ApiTurny.domain.entity.*;
 import com.turny.ApiTurny.domain.repository.*;
+import com.turny.ApiTurny.domain.dto.profile.NegocioProfileResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.UUID;
+
 
 @Service
 @RequiredArgsConstructor
@@ -51,5 +55,38 @@ public class BusinessService {
                     );
                 })
                 .toList();
+    }
+    public NegocioProfileResponse getPerfilPublico(UUID negocioId) {
+        Business negocio = businessRepository.findById(negocioId)
+                .orElseThrow(() -> new NoSuchElementException("Negocio no encontrado"));
+
+        User user = negocio.getUser();
+
+        return new NegocioProfileResponse(
+                user.getId(),
+                negocio.getId(),
+                user.getNombre(),
+                user.getEmail(),
+                user.getTelefono(),
+                user.getAvatarUrl(),
+                negocio.getNombre(),
+                negocio.getCategoria(),
+                negocio.getDescripcion(),
+                negocio.getDireccion(),
+                negocio.getCiudad(),
+                negocio.getCodigoPostal(),
+                negocio.getLatitud(),
+                negocio.getLongitud(),
+                negocio.getWhatsapp(),
+                negocio.getEmail(),
+                negocio.getWebsite(),
+                negocio.getImagenUrl(),
+                negocio.getLogoUrl(),
+                negocio.getCodigo(),
+                negocio.getRating(),
+                negocio.getTotalResenas(),
+                negocio.getVerificado(),
+                negocio.getCreatedAt()
+        );
     }
 }

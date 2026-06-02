@@ -1,12 +1,14 @@
 package com.turny.ApiTurny.controller;
 
 import com.turny.ApiTurny.domain.dto.business.BusinessCardResponse;
+import com.turny.ApiTurny.domain.dto.profile.NegocioProfileResponse;
 import com.turny.ApiTurny.domain.service.BusinessService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/businesses")
@@ -19,5 +21,12 @@ public class BusinessController {
     @GetMapping
     public ResponseEntity<List<BusinessCardResponse>> getCards() {
         return ResponseEntity.ok(businessService.getCards());
+    }
+
+    @GetMapping("/{negocioId}")
+    public ResponseEntity<NegocioProfileResponse> getPerfilPublico(
+            @PathVariable UUID negocioId
+    ) {
+        return ResponseEntity.ok(businessService.getPerfilPublico(negocioId));
     }
 }
