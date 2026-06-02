@@ -132,9 +132,17 @@ public class AppointmentService {
                 continue;
             }
 
-            boolean disponible = !ocupadas.contains(cursor)
-                    && !fecha.equals(LocalDate.now())
-                    || cursor.isAfter(LocalTime.now());
+//            boolean disponible = !ocupadas.contains(cursor)
+//                    && !fecha.equals(LocalDate.now())
+//                    || cursor.isAfter(LocalTime.now());
+            boolean disponible =
+                    !ocupadas.contains(cursor)
+                            &&
+                            (
+                                    !fecha.equals(LocalDate.now())
+                                            ||
+                                            cursor.isAfter(LocalTime.now())
+                            );
 
             slots.add(new SlotResponse(
                     cursor,
