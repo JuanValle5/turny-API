@@ -35,6 +35,7 @@ public class SecurityConfig {
                                 "/auth/**",
                                 "/api/businesses",
                                 "/api/businesses/*",
+                                "/api/businesses/code/*",
                                 "/api/business-hours/**",
                                 "/api/services/**",
                                 "/api/appointments/slots",

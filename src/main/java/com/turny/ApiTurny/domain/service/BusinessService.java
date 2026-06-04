@@ -56,6 +56,38 @@ public class BusinessService {
                 })
                 .toList();
     }
+    public BusinessCardResponse getByCode(String codigo) {
+        int diaHoy = LocalDate.now().getDayOfWeek().getValue() % 7;
+
+        Business negocio = businessRepository.findByCodigo(codigo)
+                .orElseThrow(() -> new NoSuchElementException(
+                        "No existe ningún negocio con el código: " + codigo
+                ));
+
+        String horarioHoy = businessHourRepository
+                .findByNegocioIdOrderByDiaSemana(negocio.getId())
+                .stream()
+                .filter(h -> h.getDiaSemana() == diaHoy)
+                .findFirst()
+                .map(h -> {
+                    if (!h.getAbierto()) return "Cerrado hoy";
+                    return h.getHoraApertura().format(FMT)
+                            + " - "
+                            + h.getHoraCierre().format(FMT);
+                })
+                .orElse("Horario no disponible");
+
+        return new BusinessCardResponse(
+                negocio.getId(),
+                negocio.getNombre(),
+                negocio.getCategoria(),
+                negocio.getDireccion(),
+                negocio.getLogoUrl(),
+                negocio.getRating(),
+                negocio.getTotalResenas(),
+                horarioHoy
+        );
+    }
     public NegocioProfileResponse getPerfilPublico(UUID negocioId) {
         Business negocio = businessRepository.findById(negocioId)
                 .orElseThrow(() -> new NoSuchElementException("Negocio no encontrado"));

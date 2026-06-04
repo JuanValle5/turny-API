@@ -23,6 +23,13 @@ public class BusinessController {
         return ResponseEntity.ok(businessService.getCards());
     }
 
+    @GetMapping("/code/{codigo}")
+    public ResponseEntity<BusinessCardResponse> getByCode(
+            @PathVariable String codigo
+    ) {
+        return ResponseEntity.ok(businessService.getByCode(codigo));
+    }
+
     @GetMapping("/{negocioId}")
     public ResponseEntity<NegocioProfileResponse> getPerfilPublico(
             @PathVariable UUID negocioId
